@@ -8,6 +8,7 @@ import string
 import requests
 import numpy as np
 from IPython.display import display , Markdown 
+import pickle
 #from konlpy.tag import *
 
 def light_crawling1(PageNum=1):
@@ -238,4 +239,25 @@ def fine_tuning(word_list):
         for i in word:
             if i in pt[62:]:
                 word.pop(i)
-    return word_list            
+    return word_list       
+
+def send_email():
+    pw = pickle.load(open("pw.pickle", "rb"))
+    url = "http://mail.google.com"
+    driver = webdriver.Chrome()
+    driver.get(url)
+    driver.find_element_by_css_selector( "#identifierId" ).send_keys( "hskimim8855@gmail.com" )
+    driver.find_element_by_css_selector('#identifierNext > content > span').click()
+    time.sleep(2)
+    driver.find_element_by_css_selector( "#password > div.aCsJod.oJeWuf > div > div.Xb9hP > input" ).send_keys( pw )
+    driver.find_element_by_css_selector('#passwordNext > content > span').click()
+    time.sleep(10)
+    driver.find_element_by_xpath('//*[@id=":ix"]/div/div').click()
+    time.sleep(1)
+    driver.find_element_by_xpath('//*[@id=":ol"]').send_keys( "hskimim8855@gmail.com" )
+    time.sleep(1)
+    driver.find_element_by_xpath('//*[@id=":o3"]').send_keys( "report_message" )
+    driver.find_element_by_xpath('//*[@id=":pt"]').click()
+    time.sleep(10)
+    driver.find_element_by_xpath('//*[@id=":nt"]').click()
+    driver.close()
