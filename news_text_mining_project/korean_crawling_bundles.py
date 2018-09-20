@@ -272,3 +272,24 @@ def send_email():
     time.sleep(10)
     driver.find_element_by_xpath('//*[@id=":nt"]').click()
     driver.close()
+    
+def chungchungmaru(PageNum = 3):
+    url = 'https://search.naver.com/search.naver?&where=news&query=kb%EA%B5%AD%EB%AF%BC%EC%9D%80%ED%96%89&sm=tab_pge&sort=0&photo=0&field=0&reporter_article=&pd=3&ds=2018.08.01&de=2018.09.20&docid=&nso=so:r,p:from20180801to20180920,a:all&mynews=0&cluster_rank=38&start=1&refresh_start=2'
+    driver = webdriver.Chrome()
+    driver.get(url)
+
+    title_ls = []
+    link_ls = []
+    for _ in range(1,PageNum):
+        for i in range(1,11):
+            try : 
+                driver.execute_script('window.scrollTo(100,{});'.format(i*100))
+#                 time.sleep(1)
+                title_ls.append(driver.find_element_by_css_selector('ul.type01 > li:nth-child({})  dt > a'.format(i)).get_attribute('title'))
+                link_ls.append(driver.find_element_by_css_selector('ul.type01 > li:nth-child({})  dt > a'.format(i)).get_attribute('href'))
+            except : pass
+        driver.execute_script('window.scrollTo(100,{});'.format(1000))
+        driver.find_element_by_css_selector('#main_pack > div.news.mynews.section._prs_nws > div.paging > a.next').click()
+    driver.close()
+    if len(title_ls) == len(link_ls) : display(Markdown('### No problem'))
+    return title_ls , link_ls
