@@ -14,6 +14,7 @@ import pickle
 def light_crawling1(PageNum=1):
     ls = []
     link_ls = []
+    title_ls = []
     driver = webdriver.Chrome()
     url = 'http://finance.daum.net/news/news_list.daum?type=main&section=&limit=30&page={}'.format(PageNum)
     driver.get(url)
@@ -22,6 +23,7 @@ def light_crawling1(PageNum=1):
             try : 
                 driver.execute_script('window.scrollTo(10,{});'.format(i*100))
                 link_ls.append(driver.find_element_by_css_selector('#contentWrap > ul:nth-child({}) > li:nth-child({}) > a'.format(i,j)).get_attribute('href'))
+                title_ls.append(driver.find_element_by_css_selector('#contentWrap > ul:nth-child({}) > li:nth-child({}) > a'.format(i,j)).get_attribute('title'))
                 driver.find_element_by_css_selector('#contentWrap > ul:nth-child({}) > li:nth-child({}) > a'.format(i,j)).click()
                 ls.append(driver.find_element_by_css_selector('#newsView').text)
                 time.sleep(1)
@@ -32,13 +34,14 @@ def light_crawling1(PageNum=1):
         for k in range(1,11,1):
             try : 
                 link_ls.append(driver.find_element_by_css_selector('#contentWrap > div.topMainNewsBox > ul > li:nth-child({}) > a'.format(k)).get_attribute('href'))
+                title_ls.append(driver.find_element_by_css_selector('#contentWrap > div.topMainNewsBox > ul > li:nth-child({}) > a'.format(k)).get_attribute('title'))
                 driver.find_element_by_css_selector('#contentWrap > div.topMainNewsBox > ul > li:nth-child({}) > a'.format(k)).click()
                 ls.append(driver.find_element_by_css_selector('#newsView').text)
                 time.sleep(1)
                 driver.get(url)
             except : pass    
     driver.close()
-    return link_ls , ls
+    return title_ls , link_ls , ls
 
 def light_crawling2(PageNum,day_ago=False):
     '''
@@ -47,6 +50,7 @@ def light_crawling2(PageNum,day_ago=False):
     '''
     ls = []
     link_ls = []
+    title_ls = []
     driver = webdriver.Chrome()
     url = 'https://finance.naver.com/news/mainnews.nhn?&page={}'.format(PageNum)
     response = requests.get(url)
@@ -56,6 +60,7 @@ def light_crawling2(PageNum,day_ago=False):
     for i in range(1,length+1,1):
         try:
             driver.execute_script('window.scrollTo(100,{});'.format(i*100))
+            title_ls.append(driver.find_element_by_css_selector("#contentarea_left > div.mainNewsList > ul > li:nth-child({}) > dl > dt > a".format(i)).text)
             link_ls.append(driver.find_element_by_css_selector("#contentarea_left > div.mainNewsList > ul > li:nth-child({}) > dl > dt > a".format(i)).get_attribute('href'))
             driver.find_element_by_css_selector("#contentarea_left > div.mainNewsList > ul > li:nth-child({}) > dl > dt > a".format(i)).click()
             ls.append(driver.find_element_by_css_selector('#content').text)
@@ -63,6 +68,7 @@ def light_crawling2(PageNum,day_ago=False):
             driver.get(url)
         except : 
             driver.execute_script('window.scrollTo(100,{});'.format(i*100))
+            title_ls.append(driver.find_element_by_css_selector("#contentarea_left > div.mainNewsList > ul > li:nth-child({}) > dl > dd > a".format(i)).text)
             link_ls.append(driver.find_element_by_css_selector("#contentarea_left > div.mainNewsList > ul > li:nth-child({}) > dl > dd > a".format(i)).get_attribute('href'))
             driver.find_element_by_css_selector("#contentarea_left > div.mainNewsList > ul > li:nth-child({}) > dl > dd > a".format(i)).click()
             ls.append(driver.find_element_by_css_selector('#content').text)
@@ -86,7 +92,7 @@ def light_crawling2(PageNum,day_ago=False):
                     time.sleep(1)
                     driver.get(url)
     driver.close()
-    return link_ls , ls
+    return title_ls , link_ls , ls
 
 
 def light_crawling3(PageNum=1):
@@ -97,6 +103,7 @@ def light_crawling3(PageNum=1):
     '''
     ls = []
     link_ls = []
+    title_ls = []
     driver = webdriver.Chrome()
     url = 'https://news.naver.com/main/hotissue/sectionList.nhn?mid=hot&sid1=101&cid=996387&page={}'.format(PageNum)
     response = requests.get(url)
@@ -107,6 +114,7 @@ def light_crawling3(PageNum=1):
     for i in range(1,length+1,1):
         try:
             driver.execute_script('window.scrollTo(100,{});'.format(i*100))
+            title_ls.append(driver.find_element_by_css_selector("div.hissue_cnt > ul > li:nth-child({}) > dl > dt > a".format(i)).text)
             link_ls.append(driver.find_element_by_css_selector("div.hissue_cnt > ul > li:nth-child({}) > dl > dt > a".format(i)).get_attribute('href'))
             driver.find_element_by_css_selector("div.hissue_cnt > ul > li:nth-child({}) > dl > dt > a".format(i)).click()
             ls.append(driver.find_element_by_css_selector('#articleBodyContents').text)
@@ -114,6 +122,7 @@ def light_crawling3(PageNum=1):
             driver.get(url)             
         except : 
             driver.execute_script('window.scrollTo(100,{});'.format(i*100))
+            title_ls.append(driver.find_element_by_css_selector("div.hissue_cnt > ul > li:nth-child({}) > dl > dd > a".format(i)).text)
             link_ls.append(driver.find_element_by_css_selector("div.hissue_cnt > ul > li:nth-child({}) > dl > dd > a".format(i)).get_attribute('href'))
             driver.find_element_by_css_selector("div.hissue_cnt > ul > li:nth-child({}) > dl > dd > a".format(i)).click()
             ls.append(driver.find_element_by_css_selector('#articleBodyContents').text)
@@ -131,7 +140,7 @@ def light_crawling3(PageNum=1):
                 display(Markdown("### Sorry, This report don't have data when it had been updated")) 
             
     driver.close()
-    return link_ls , ls
+    return title_ls , link_ls , ls
 
 def light_crawling4(PageNum = 1):
     for page in range(1,PageNum+1,1) : 
@@ -140,10 +149,12 @@ def light_crawling4(PageNum = 1):
         driver.get(url)
         ls = []
         link_ls = []
-
+        title_ls = []
+        
         for i in range(15,50,1):
             driver.execute_script('window.scrollTo(10,{});'.format(i*100))
             try:
+                title_ls.append(driver.find_element_by_css_selector('#mArticle > div > ul > li:nth-child({}) > strong > a'.format(i - 14)).text)
                 link_ls.append(driver.find_element_by_css_selector('#mArticle > div > ul > li:nth-child({}) > strong > a'.format(i - 14)).get_attribute('href'))
                 driver.find_element_by_css_selector('#mArticle > div > ul > li:nth-child({}) > strong > a'.format(i - 14)).click()
                 ls.append(driver.find_element_by_css_selector('#harmonyContainer > section').text)
@@ -151,7 +162,7 @@ def light_crawling4(PageNum = 1):
             time.sleep(1)
             driver.get(url)
         driver.close()
-        return link_ls , ls   
+        return title_ls , link_ls , ls   
     
 def operate_light_crawling(vers,day_ago=False,PageNum=1,make_df=True):
     '''
