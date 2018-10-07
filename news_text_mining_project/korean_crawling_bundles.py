@@ -289,7 +289,8 @@ def chungchungmaru(PageNum = 3):
                 link_ls.append(driver.find_element_by_css_selector('ul.type01 > li:nth-child({})  dt > a'.format(i)).get_attribute('href'))
             except : pass
         driver.execute_script('window.scrollTo(100,{});'.format(1000))
-        driver.find_element_by_css_selector('#main_pack > div.news.mynews.section._prs_nws > div.paging > a.next').click()
+        try : driver.find_element_by_css_selector('#main_pack > div.news.mynews.section._prs_nws > div.paging > a.next').click()
+        except : pass
     driver.close()
     if len(title_ls) == len(link_ls) : display(Markdown('### No problem'))
     return title_ls , link_ls

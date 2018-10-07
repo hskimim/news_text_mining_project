@@ -3,8 +3,7 @@
 - It recommends five URLs from the massive news articles pouring like a fountain every day with an algorithm-based recommendation system.
 
 ### Name
-- '김 현식'
-- 'Derrick Kim'
+- '김 현식' ('Derrick Kim')
 
 ## 1. Objective
 - 알고리즘 기반으로 금융,경제 토픽의 뉴스 5개를 추천해주는데, 해당 뉴스들은 전체 뉴스의 토픽을 대변하고 있어야 한다.
@@ -21,14 +20,34 @@
 
 ## 3. Algorithm
 - Korean corpus Extraction :
-  - Konlpy
+  - [Konlpy](https://konlpy-ko.readthedocs.io/)
 
-- Recommendation :
-  - Latent Dirichlet Allocation
+- Recommendation algorithm:
+  - [Latent Dirichlet Allocation](https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation)
+
+## Sequence
+> 개인 로컬의 환경 상, 코퍼스 추출은 윈도우 환경에서, 크롤링 환경은 리눅스 환경에서 진행하였다.
+In the personal local environment, the corpus extraction was performed in the window environment, and the crawling environment was performed in the Linux environment.
+
+  - **Crawling**
+      + [crwaling_selenium](news_text_mining_project/process_1_linux.ipynb)
+        - crawling process under the package named 'Selenium'
+
+  - **Extract_text**
+      + [extract_konlpy](news_text_mining_project/process_2_win10.ipynb)
+        - extract process under the package named 'konlpy'
+
+      + [operating_session](news_text_mining_project/process_2_operating_session.ipynb)
+        - extract process under the package named 'konlpy'
+
+  - **Tuning and Recommendation**
+      + [Latent_Dirichelet_Allocation](news_text_mining_project/Latent_Dirichelet_Allocation.ipynb)
+        - tuning and recommending the news with python code and LDA
 
 ## 4. Sequence
 - process_1(Linux_env) :
   - Data crawling(under the `Selenium`)
+  - [Selenium](https://www.seleniumhq.org/)
 
 - process_2(Windows10_env)
   - Data Tuning(under the `Konlpy`)
