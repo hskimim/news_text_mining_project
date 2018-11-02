@@ -21,13 +21,19 @@
 ## 3. Algorithm
 - Korean corpus Extraction :
   - [Konlpy](https://konlpy-ko.readthedocs.io/)
+  <img src="IMG_1422.jpg">
+
 
 - Recommendation algorithm:
   - [Latent Dirichlet Allocation](https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation)
+  - personal refered doc :   https://ratsgo.github.io/from%20frequency%20to%20semantics/2017/06/01/LDA/
 
+  <img src="IMG_1425.jpg">
 ## Sequence
 > 개인 로컬의 환경 상, 코퍼스 추출은 윈도우 환경에서, 크롤링 환경은 리눅스 환경에서 진행하였다.
 In the personal local environment, the corpus extraction was performed in the window environment, and the crawling environment was performed in the Linux environment.
+
+> Newly updated : 최근 업데이트된 내용상, 파일 명은 win10 을 유지했지만, 리눅스 환경 내에서 일관되게 돌아가도록 하였다. 즉, 같은 OS 환경 내에서도 operating 가능하다.
 
   - **Crawling**
       + [crwaling_selenium](news_text_mining_project/process_1_linux.ipynb)
@@ -44,6 +50,8 @@ In the personal local environment, the corpus extraction was performed in the wi
       + [Latent_Dirichelet_Allocation](news_text_mining_project/Latent_Dirichelet_Allocation.ipynb)
         - tuning and recommending the news with python code and LDA
 
+        - <img src='IMG_1423.jpg'>
+        
 ## 4. Sequence
 - process_1(Linux_env) :
   - Data crawling(under the `Selenium`)
