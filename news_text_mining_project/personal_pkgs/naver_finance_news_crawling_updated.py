@@ -71,5 +71,5 @@ df.tail()
 # In[8]:
 
 
-df.to_csv('{}_with_link_naver.csv'.format(str(datetime.datetime.now().month) + str(datetime.datetime.now().day),index=False),index=False)
+df.to_csv('../folder/'+'{}_with_link_naver.csv'.format(str(datetime.datetime.now().month) + str(datetime.datetime.now().day),index=False),index=False)
 
